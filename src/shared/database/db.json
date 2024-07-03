@@ -132,6 +132,10 @@
         {
           "examName": "JAVA",
           "score": 4
+        },
+        {
+          "examName": "Java",
+          "score": 3
         }
       ]
     }

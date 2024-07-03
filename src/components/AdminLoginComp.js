@@ -15,21 +15,19 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LoginNavComp from './LoginNavComp';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
+      DKGH Enterprises
+      {' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
 }
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
@@ -42,17 +40,17 @@ function AdminLoginComp() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    let email=data.get('email');
-    let password=data.get('password');
-    axios.get("http://localhost:8888/admin").then((res)=>{
+    let email = data.get('email');
+    let password = data.get('password');
+    axios.get("http://localhost:8888/admin").then((res) => {
       let userData = res.data;
-      const data = userData.filter((val)=>{return val.admin_email===email && val.admin_password===password})
-      if(data.length >0){
-          sessionStorage.setItem("email",email);
-          sessionStorage.setItem("loggedin",true);
-          nav("/admindashboard");//Change here 
+      const data = userData.filter((val) => { return val.admin_email === email && val.admin_password === password })
+      if (data.length > 0) {
+        sessionStorage.setItem("email", email);
+        sessionStorage.setItem("loggedin", true);
+        nav("/admindashboard"); // Change here 
       }
-      else{
+      else {
         console.log("Login Failed")
       }
     })
@@ -60,8 +58,22 @@ function AdminLoginComp() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-      <LoginNavComp></LoginNavComp>
+      <Container 
+        component="main" 
+        maxWidth="xs"
+        sx={{
+          backgroundImage: 'url(https://www.vecteezy.com/vector-art/21553487-illustration-with-kids-and-teacher-in-a-classroom-education-illustration-vector-interior-teacher-with-pupils-in-a-classroom-primary-school-kids-children-listen-to-teacher)', // Replace with your image URL
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingTop: 4, // Add some padding at the top for spacing
+        }}
+      >
+        <LoginNavComp />
         <CssBaseline />
         <Box
           sx={{
@@ -69,6 +81,12 @@ function AdminLoginComp() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background
+            padding: 3,
+            borderRadius: 2,
+            boxShadow: 3,
+            width: '100%', // Ensure the box takes the full width of the container
+            maxWidth: 400, // Add a max width to avoid it stretching too much
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -124,4 +142,5 @@ function AdminLoginComp() {
     </ThemeProvider>
   );
 }
+
 export default AdminLoginComp;

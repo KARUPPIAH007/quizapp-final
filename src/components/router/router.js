@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import StudentSignupcomp from "../StudentSignupComp";
-
 import StudentLoginComp from "../StudentLoginComp";
 import StudentVoucherComp from "../StudentVoucherComp";
 import TeacherLoginComp from "../TeacherLoginComp";
@@ -21,6 +20,8 @@ import AdminSignupComp from "../AdminSinupComp";
 import AdminMaindashboardComp from "../../layouts/AdminMainDashboard";
 import AdminAddTeacher from "../AdminAddTeacher";
 import TeachersListComp from "../TeachersListComp";
+import ProtectedRoute from '../ProtectedRoute';
+
 const router = createBrowserRouter([
     { path: "", element: <StudentLoginComp /> },
     { path: "studentlogin", element: <StudentLoginComp /> },
@@ -31,83 +32,37 @@ const router = createBrowserRouter([
     { path: "adminlogin", element: <AdminLoginComp /> },
     { path: "adminsignup", element: <AdminSignupComp /> },
     { path: "questionbank", element: <QuestionBank /> },
-    {path:"admindashboard",element:<AdminMaindashboardComp/>,children:
-        [
-            {
-                path: 'voucheradd',
-                element: <VoucherAddComp />
-            },
-            {
-                path: 'voucherdash',
-                element: <VoucherDashboardComp />
-            },
-            {
-                path: 'voucheredit/:id',
-                element: <VoucherUpdateComp />
-            },
-            {
-                path: 'examtable',
-                element: <ExamTable />
-            },
-            {
-                path: 'addexam',
-                element: <ExamForm />
-            },
-            {
-                path: 'formcomponent',
-                element: <FormComponent />
-            },
-            {
-                path: 'editquestioncomponent',
-                element: <EditFormComponent />
-            },
-            {
-                path: 'results',
-                element:<Results/>
-            },
-            {
-                path:'teacherslist',
-                element:<TeachersListComp/>
-            },
-            {path:"adminaddteacher",element:<AdminAddTeacher/>},
+    {
+        path: "admindashboard", 
+        element: <ProtectedRoute element={<AdminMaindashboardComp />} />, 
+        children: [
+            { path: 'voucheradd', element: <ProtectedRoute element={<VoucherAddComp />} /> },
+            { path: 'voucherdash', element: <ProtectedRoute element={<VoucherDashboardComp />} /> },
+            { path: 'voucheredit/:id', element: <ProtectedRoute element={<VoucherUpdateComp />} /> },
+            { path: 'examtable', element: <ProtectedRoute element={<ExamTable />} /> },
+            { path: 'addexam', element: <ProtectedRoute element={<ExamForm />} /> },
+            { path: 'formcomponent', element: <ProtectedRoute element={<FormComponent />} /> },
+            { path: 'editquestioncomponent', element: <ProtectedRoute element={<EditFormComponent />} /> },
+            { path: 'results', element: <ProtectedRoute element={<Results />} /> },
+            { path: 'teacherslist', element: <ProtectedRoute element={<TeachersListComp />} /> },
+            { path: "adminaddteacher", element: <ProtectedRoute element={<AdminAddTeacher />} /> },
         ]
     },
     {
-        path: '/maindashboard', element: <MaindashboardComp />, children: [
-            {
-                path: 'voucheradd',
-                element: <VoucherAddComp />
-            },
-            {
-                path: 'voucherdash',
-                element: <VoucherDashboardComp />
-            },
-            {
-                path: 'voucheredit/:id',
-                element: <VoucherUpdateComp />
-            },
-            {
-                path: 'examtable',
-                element: <ExamTable />
-            },
-            {
-                path: 'addexam',
-                element: <ExamForm />
-            },
-            {
-                path: 'formcomponent',
-                element: <FormComponent />
-            },
-            {
-                path: 'editquestioncomponent',
-                element: <EditFormComponent />
-            },
-            {
-                path: 'results',
-                element:<Results/>
-            }
+        path: '/maindashboard', 
+        element: <ProtectedRoute element={<MaindashboardComp />} />, 
+        children: [
+            { path: 'voucheradd', element: <ProtectedRoute element={<VoucherAddComp />} /> },
+            { path: 'voucherdash', element: <ProtectedRoute element={<VoucherDashboardComp />} /> },
+            { path: 'voucheredit/:id', element: <ProtectedRoute element={<VoucherUpdateComp />} /> },
+            { path: 'examtable', element: <ProtectedRoute element={<ExamTable />} /> },
+            { path: 'addexam', element: <ProtectedRoute element={<ExamForm />} /> },
+            { path: 'formcomponent', element: <ProtectedRoute element={<FormComponent />} /> },
+            { path: 'editquestioncomponent', element: <ProtectedRoute element={<EditFormComponent />} /> },
+            { path: 'results', element: <ProtectedRoute element={<Results />} /> },
         ]
     },
     { path: '*', element: <PageNotFound /> }
-])
+]);
+
 export default router;

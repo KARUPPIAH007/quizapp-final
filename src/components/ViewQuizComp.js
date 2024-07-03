@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Card, CardContent, Typography, Radio, FormControl, FormControlLabel, FormGroup, Button, Badge, List, ListItem, ListItemText, Grid } from '@mui/material';
 
+import { useNavigate } from 'react-router-dom';
 function QuestionBank() {
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -12,7 +13,13 @@ function QuestionBank() {
     const [examName, setExamName] = useState("");
     const [users, setUsers] = useState([]);
 
+    const nav = useNavigate();
     useEffect(() => {
+        if(sessionStorage.getItem('loggedin'))
+        {
+            nav("/");
+            
+        }
         fetchQuestions();
         axios.get("http://localhost:8888/student").then((res) => {
             setUsers(res.data);
